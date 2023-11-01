@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Roboto+Slab:wght@200&family=Shadows+Into+Light&family=Slabo+27px&display=swap');
+/*/ image "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg" /*/
+/*/ image nature "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832_1280.jpg" /*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100%;
+    overflow: auto;
+}
+app, html{
+    height: 100%;
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928_1280.jpg");
+    background-size: cover;
+    background-position:center;
+    image-rendering: optimizeQuality;
+    overflow: hidden;
+
+}
+.launch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    image-rendering: optimizeQuality;
+    height: 100vh;
+}
+.launch-header{
+    margin-top: 1rem;
+    font-family: 'Quicksand';
+    color: #F5F0F6;
+}
+.launch-button{
+    position: relative;
+    top: 40%;
+    margin-bottom: 1rem;
+    background-color: #011638;
+    color: #F5F0F6;
+    padding: .75rem  1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: .75;
+}
+.launch-button:hover{
+    opacity: 1;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Quicksand';
+    color:#000004;
+    height: 100vh;
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    image-rendering: optimizeQuality;
+}
+.login-header{
+    margin: 1rem 0;
+}
+.login-input{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 10rem;
+    left: .5rem;
+}
+.login-button{
+    display: flex;
+    position: relative;
+    top: 12rem;
+    left: 3.5rem;
+    background-color: #011638;
+    padding: 8px;
+    color: #F5F0F6;
+    cursor: pointer;
+}
+.register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Quicksand';
+    color:#000004;
+    background-image: url("https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg");
+    background-size: cover;
+    background-position: center;
+    image-rendering: optimizeQuality;
+    height: 100vh;
+}
+.register-header{
+    margin: 1rem 0;
+}
+.register-input{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 10rem;
+    left: .5rem;
+}
+.register-button{
+    display: flex;
+    position: relative;
+    top: 12rem;
+    left: 3.5rem;
+    background-color: #011638;
+    padding: 8px;
+    color: #F5F0F6;
+    cursor: pointer;
+}
+.home{
+    color: #F5F0F6;
+    font-family: 'Quicksand';
+    height: 100vh;
+    background-image: url("https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928_1280.jpg");
+    background-size: cover;
+    background-position:center;
+    image-rendering: optimizeQuality;
+}
+.home-h{
+    display: flex;
+    justify-content: center;
+    
+}
+.home-header{
+    padding: 1rem;
+    color: #000004;
+    border-radius: 50%;
+}
+.lastMed{
+    display: flex;
+    justify-content:center;
+    position: relative;
+    top: 5rem;
+}
+.lastMedList{
+    border: 5px solid #385F71;
+    background-color: #FBFEF9;
+    background: rgba(238, 244, 244, 0.5);
+    border-radius: 20%;
+    color: #000004;
+    list-style: none;
+    padding: 4rem;
+
+}
+
+.lastMedHeader{
+    margin-bottom: 1rem;
+}
+.welcome-home{
+    display: flex;
+    justify-content: center;
+    color: #000004;
+    font-family: 'Roboto Slab';
+    font-size: 18px;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+.footer-div{
+    background: rgba(238, 244, 244, 0.5);
+    border: 2px solid #385F71;
+    width: 100vw;
+}
+.footer-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style-type: none;
+    color: #000004;
+    cursor: pointer;
+    padding-top: 5px;
+}
+.meditations{
+    color: #000004;
+    font-family: 'Quicksand';
+}
+.meditations-header{
+    text-align: center;
+    margin-top: 1rem;
+}
+.profile{
+    color: #000004;
+    font-family: 'Quicksand';
+}
+.profile-header{
+    text-align: center;
+    margin-top: 1rem;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 5rem;
+}
+.user-info-list{
+    background: rgba(238, 244, 244, 0.5);
+    border: 5px solid #385F71;
+    list-style: none;
+    padding: 4rem;
+    border-radius: 25%;
+}
+.meditations-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.meditation-list{
+    list-style: none;
+    margin-bottom: 1rem;
+    text-align: center;
+    background: rgba(238, 244, 244, 0.5);
+    border: 5px solid #385F71;
+    border-radius: 35%;
+    padding: 2rem;
+    cursor: pointer;
+}
+.meditation{
+    font-family: 'Quicksand';
+}
+.meditation-header{
+    text-align: center;
+    margin-top: 1rem;
+}
+.med-list{
+    text-align: center;
+    list-style: none;
+}
