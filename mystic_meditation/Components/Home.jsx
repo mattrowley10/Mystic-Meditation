@@ -2,6 +2,7 @@ import Footer from "./Footer";
 import { useAuth } from "../hooks/useAuth";
 export default function Home() {
   const user = useAuth();
+  console.log(user);
 
   return (
     <div className="home">

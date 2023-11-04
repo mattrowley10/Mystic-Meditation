@@ -13,12 +13,8 @@ export async function getToken() {
 export async function getUserData() {
   try {
     const response = await fetch("/api/users/me");
-    if (response.ok) {
-      const userData = await response.json();
-      return userData;
-    } else {
-      throw new Error("Failed to fetch User Data");
-    }
+    const userData = await response.json();
+    return userData;
   } catch (error) {
     console.error("Failed to fetch User Data");
     throw error;

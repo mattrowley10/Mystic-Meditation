@@ -6,22 +6,28 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     async function fetchMe() {
-      try {
-        const userData = await getUserData();
-        console.log(userData.user);
-        setUser(userData.user);
-      } catch (error) {
-        console.error("Error Fetching Me");
-        throw error;
+      if (token) {
+        try {
+          const userData = await getUserData(token);
+          console.log(userData.user);
+          setUser(userData.user);
+          setLoggedIn(true);
+        } catch (error) {
+          setLoggedIn(false);
+        }
       }
     }
     fetchMe();
-  }, []);
+  }, [loggedIn, setUser, token]);
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loggedIn, setToken }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

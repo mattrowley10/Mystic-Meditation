@@ -6,19 +6,6 @@ const userAdapter = require("../Database/adapters/users.js");
 const usersRouter = express.Router();
 const secretKey = process.env.JWT_SECRET;
 
-usersRouter.get("/users/me", authRequired, async (req, res) => {
-  const user = await userAdapter.getUserByUsername(req.user.username);
-  if (!user) {
-    res.status(401).json({ error: "No User Found" });
-  } else {
-    res.send({
-      success: true,
-      message: "You are Authorized",
-      user: req.user,
-    });
-  }
-});
-
 usersRouter.post("/users/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await userAdapter.getUserByUsername(username);
@@ -46,11 +33,31 @@ usersRouter.post("/users/login", async (req, res) => {
   );
 
   res.cookie("token", token, {
-    httpOnly: true,
+    sameSite: "strict",
     signed: true,
   });
 
-  res.status(200).json({ message: "Login Successful" });
+  res.status(200).json({ message: "Login Successful", token });
+});
+usersRouter.get("/users/me", authRequired, async (req, res) => {
+  const user = await userAdapter.getUserByUsername(req.user.username);
+  if (!user) {
+    res.send({
+      success: false,
+      error: {
+        message: "There is no user with that username!",
+        name: "Auth Error",
+      },
+    });
+    res.status(401);
+    return;
+  } else {
+    res.send({
+      success: true,
+      message: "You are Authorized",
+      user: req.user,
+    });
+  }
 });
 usersRouter.post("/users/logout", async (req, res) => {
   try {

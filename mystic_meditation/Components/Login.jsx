@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../API/auth.js";
+// import { getToken } from "../API/auth.js";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -9,14 +9,26 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const token = await getToken(username, password);
-      if (token) {
-        console.log("Login Successful");
-        console.log(username);
-        localStorage.setItem("token", token);
-        nav("/home", { state: { username } });
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+          console.log("Login Successful");
+          nav("/home", { state: { username } });
+        } else {
+          console.log("Login failed");
+        }
       } else {
-        console.log("login failed");
+        console.log("Login failed");
       }
     } catch (error) {
       console.error("Error during login", error);
