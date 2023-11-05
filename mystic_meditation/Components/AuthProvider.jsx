@@ -1,31 +1,79 @@
 import PropTypes from "prop-types";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { getUserData } from "../API/auth";
 
+// import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    async function fetchMe() {
-      if (token) {
-        try {
+  const login = async ({ username, password }) => {
+    try {
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.token;
+        if (token) {
           const userData = await getUserData(token);
-          console.log(userData.user);
-          setUser(userData.user);
+          localStorage.setItem("token", token);
+          setUser(userData);
+          setUsername(userData.username);
+          setEmail(userData.email);
           setLoggedIn(true);
-        } catch (error) {
-          setLoggedIn(false);
+          console.log("Login Successful");
+        } else {
+          console.log("Login failed");
         }
+      } else {
+        console.log("Login failed");
       }
+    } catch (error) {
+      console.error("Error during login", error);
     }
-    fetchMe();
-  }, [loggedIn, setUser, token]);
+  };
+
+  const logout = async () => {
+    localStorage.removeItem("token", token);
+    const response = await fetch("api/users/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    setUser({});
+    setLoggedIn(false);
+
+    console.log("Logout Successful");
+
+    return response;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loggedIn, setToken }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        username,
+        email,
+        loggedIn,
+        setLoggedIn,
+        setToken,
+        setUser,
+        setUsername,
+        setEmail,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

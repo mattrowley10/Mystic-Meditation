@@ -2,7 +2,7 @@ import { useAuth } from "../hooks/useAuth";
 import Footer from "./Footer";
 
 export default function Profile() {
-  const user = useAuth();
+  const { user } = useAuth();
   return (
     <div className="profile">
       <h2 className="profile-header">Profile</h2>
@@ -13,10 +13,10 @@ export default function Profile() {
           </li>
           <br></br>
           <li>
-            <p className="info">Username: {user.user.username} </p>
+            <p className="info">Username: {user.username} </p>
           </li>
           <li>
-            <p className="info">Email: {user.user.email}</p>
+            <p className="info">Email: {user.email}</p>
           </li>
         </ul>
       </div>

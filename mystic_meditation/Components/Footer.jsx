@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { useAuth } from "../hooks/useAuth";
 export default function Footer() {
+  const { logout } = useAuth();
   const nav = useNavigate();
   const location = useLocation();
   const navigateToProfile = () => {
@@ -18,6 +19,11 @@ export default function Footer() {
     return null;
   };
 
+  const handleLogout = async () => {
+    await logout();
+    nav("/");
+  };
+
   return (
     <footer className="footer">
       <div className="footer-div">
@@ -31,6 +37,9 @@ export default function Footer() {
           </li>
           <li className="footer-item">
             <a onClick={() => nav("/community")}>Community</a>
+          </li>
+          <li>
+            <a onClick={handleLogout}>Logout</a>
           </li>
         </ul>
       </div>

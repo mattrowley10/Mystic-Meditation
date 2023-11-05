@@ -28,7 +28,7 @@ usersRouter.post("/users/login", async (req, res) => {
     },
     secretKey,
     {
-      expiresIn: "24h",
+      expiresIn: "1h",
     }
   );
 
@@ -38,6 +38,20 @@ usersRouter.post("/users/login", async (req, res) => {
   });
 
   res.status(200).json({ message: "Login Successful", token });
+});
+usersRouter.post("/users/logout", async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      sameSite: "strict",
+      signed: true,
+    });
+    res.send({
+      success: true,
+      message: "Logged Out!",
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 usersRouter.get("/users/me", authRequired, async (req, res) => {
   const user = await userAdapter.getUserByUsername(req.user.username);
@@ -57,21 +71,6 @@ usersRouter.get("/users/me", authRequired, async (req, res) => {
       message: "You are Authorized",
       user: req.user,
     });
-  }
-});
-usersRouter.post("/users/logout", async (req, res) => {
-  try {
-    res.clearCookie("token", {
-      sameSite: "strict",
-      httpOnly: true,
-      signed: true,
-    });
-    res.send({
-      success: true,
-      message: "Logged Out!",
-    });
-  } catch (error) {
-    next(error);
   }
 });
 usersRouter.get("/users/username/:username", async (req, res) => {

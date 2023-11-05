@@ -1,44 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 // import { getToken } from "../API/auth.js";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
   const nav = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("/api/users/login", {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        const token = data.token;
-        if (token) {
-          localStorage.setItem("token", token);
-          console.log("Login Successful");
-          nav("/home", { state: { username } });
-        } else {
-          console.log("Login failed");
-        }
-      } else {
-        console.log("Login failed");
-      }
-    } catch (error) {
-      console.error("Error during login", error);
+    if (!username || !password) {
+      console.log("Please Fill out both fields");
+      return;
+    } else {
+      await login({ username, password });
+      nav("/home");
     }
   };
 
   return (
     <div className="login">
       <h2 className="login-header">Login</h2>
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="login-input">
           <label>Username: </label>
           <input
@@ -62,9 +47,7 @@ export default function Login() {
             type="password"
           />
         </div>
-        <button className="login-button" onClick={handleLogin}>
-          Submit
-        </button>
+        <button className="login-button">Submit</button>
       </form>
     </div>
   );
