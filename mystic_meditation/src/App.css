@@ -236,3 +236,33 @@ app, html{
     text-align: center;
     list-style: none;
 }
+.community{
+    font-family: 'Quicksand';
+    display: flex;
+    justify-content: space-between;
+}
+.community-header{
+    font-family: 'Quicksand';
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.friends{
+    background: rgba(238, 244, 244, 0.5);
+    border: 5px solid #385F71;
+    list-style: none;
+    position: relative;
+    left: 2rem;
+    padding: 1rem 5rem 1rem 5rem;
+    border-radius: 4%;
+    min-height: 36.5rem;
+}
+.recent{
+    position: relative;
+    right: 2rem;
+    background: rgba(238, 244, 244, 0.5);
+    border: 5px solid #385F71;
+    border-radius: 2%;
+    padding: 1rem 10rem 1rem 10rem;
+    min-height: 36.5rem;
+}
